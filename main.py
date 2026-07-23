@@ -3,44 +3,45 @@
 from pathlib import Path
 
 def calc(i):
-
     if len(i) == 3:
-        try:
-            one = int(i[0].split()[1])
-            try:
-                two = int(i[2].split()[1])
+        one = i[0][1]
+        two = i[2][1]
 
-                op = i[1].split()[1]
+        op = i[1][1]
 
-
-                if op == "+":
-                    print(one + two)
-
-                elif op == "-":
-                    print(one - two)
-
-                elif op == "*":
-                    print(one * two)
-
-                elif op == "/":
-                    if two == 0:
-                        print("ERROR3: Cannot Divide By 0.")
-                    else:
-                        print(one / two)
-                else:
-                    print(f"ERROR4: Unexpected Operator '{op}'")
+        one_val = i[0][0]
+        two_val = i[2][0]
+        op_val = i[1][0]
 
 
-            except ValueError:
-                print(f"ERROR2: Expected int, Not {i[2].split()[1]}.")
+
+        if one_val == "INT":
+            if not two_val == "INT":
+                print(f"ERROR1: Expected int to add with int, Not {two[1]}.")
+                return
 
 
-        except ValueError:
-            print(f"ERROR2: Expected int, Not {i[0].split()[1]}.")
+            if not op_val == "OP":
+                print(f"ERROR3: Unexpected Operator '{op}'")
+                return
 
 
-    else:
-        print(f"ERROR1: Expected 3 Thingies, Not {len(i)}.")
+
+            if op == "+":
+                print(one + two)
+            
+            elif op == "-":
+                print(one - two)
+            
+            elif op == "*":
+                print(one * two)
+            
+            elif op == "/":
+                if two == 0:
+                    print("ERROR2: Cannot Divide By 0.")
+                    return
+                print(one / two)
+
 
 def tokenize(i):
     tokens = []
@@ -48,13 +49,13 @@ def tokenize(i):
 
     for word in split:
         try:
-            tokens.append(f"INT: {int(word)}")
+            tokens.append(("INT", int(word)))
         except ValueError:
             if word == "+" or word == "-" or word == "/" or word == "*":
-                tokens.append(f"OP: {word}")
+                tokens.append(("OP", word))
 
             else:
-                tokens.append(f"STRING: {word}")
+                tokens.append(("STRING", word))
 
     return tokens
 
