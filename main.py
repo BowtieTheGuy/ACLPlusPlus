@@ -3,15 +3,14 @@
 from pathlib import Path
 
 def calc(i):
-    split = i.split()
 
-    if len(split) == 3:
+    if len(i) == 3:
         try:
-            one = int(split[0])
+            one = int(i[0].split()[1])
             try:
-                two = int(split[2])
+                two = int(i[2].split()[1])
 
-                op = split[1]
+                op = i[1].split()[1]
 
 
                 if op == "+":
@@ -33,15 +32,15 @@ def calc(i):
 
 
             except ValueError:
-                print(f"ERROR2: Expected int, Not {split[2]}")
+                print(f"ERROR2: Expected int, Not {i[2].split()[1]}.")
 
 
         except ValueError:
-            print(f"ERROR2: Expected int, Not {split[0]}.")
+            print(f"ERROR2: Expected int, Not {i[0].split()[1]}.")
 
 
     else:
-        print(f"ERROR1: Expected 3 Thingies, Not {len(split)}.")
+        print(f"ERROR1: Expected 3 Thingies, Not {len(i)}.")
 
 def tokenize(i):
     tokens = []
@@ -66,4 +65,4 @@ def tokenize(i):
 while True:
     i = input("> ")
 
-    calc(i)
+    calc(tokenize(i))
