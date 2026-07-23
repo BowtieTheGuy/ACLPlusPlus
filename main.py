@@ -1,13 +1,9 @@
 #ACL++
-#3 error messages
-
-
+#4 error messages
 from pathlib import Path
 
 def calc(i):
     split = i.split()
-
-    
 
     if len(split) == 3:
         try:
@@ -47,6 +43,24 @@ def calc(i):
     else:
         print(f"ERROR1: Expected 3 Thingies, Not {len(split)}.")
 
+def tokenize(i):
+    tokens = []
+    split = i.split()
+
+    for word in split:
+        try:
+            tokens.append(f"INT: {int(word)}")
+        except ValueError:
+            if word == "+" or word == "-" or word == "/" or word == "*":
+                tokens.append(f"OP: {word}")
+
+            else:
+                tokens.append(f"STRING: {word}")
+
+    return tokens
+
+
+    
 
 
 while True:
